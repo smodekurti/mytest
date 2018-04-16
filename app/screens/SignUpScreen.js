@@ -37,23 +37,7 @@ class SignUpScreen extends React.Component{
       
       
 
-    loginUser = (email, password) => {
-        try {
-            firebase.auth().signInWithEmailAndPassword(email, password)
-            .then(function(user){
-                console.log(user);
-            })
-            .catch(function(error){
-                const { code, message } = error;
-               DropDownHolder.dropDown.alertWithType('error', 'Authentication Failed',message);
-            })
-        } catch (error) {
-            const { code, message } = error;
-            console.log("Login Failed");
-            //this.props.alertWithType('error', 'Error',message);
-;        }
-        
-    }
+
 
     signUpUser = (email, password) => {
         try {

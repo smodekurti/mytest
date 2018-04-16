@@ -1,5 +1,5 @@
 import React from 'react';
-import {ScrollView, View,Text, StyleSheet, StatusBar, Button, TextInput , KeyboardAvoidingView , Image} from 'react-native';
+import {ScrollView, View,Text, StyleSheet, StatusBar, Button, TextInput , TouchableWithoutFeedback, KeyboardAvoidingView , Image, Keyboard} from 'react-native';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import Logo from '../components/Logo/Logo'
 import Container from '../components/Container/container'
@@ -9,6 +9,9 @@ import {ConnectAlert} from '../components/Alert/index';
 import PropTypes from 'prop-types';
 import DropdownAlert from 'react-native-dropdownalert';
 import DropDownHolder from '../DropDownHolder';
+import SocialLoginG from '../components/SocialLogin/SocialLogin';
+import {FacebookLoginButton} from 'react-social-login-buttons';
+
 
 
 
@@ -24,7 +27,7 @@ class LoginScreen extends React.Component{
 
     constructor(props){
         super(props);
-        this.state = {email:'', password:'', loading: false}
+        this.state = {email:'', password:'', loading: false, signUpSuccessful:false}
         firebase.initializeApp(this.firebaseConfig);
     }
 
@@ -37,7 +40,7 @@ class LoginScreen extends React.Component{
       
       
 
-    loginUser = (email, password) => {
+    onLoginUser = (email, password) => {
         try {
             firebase.auth().signInWithEmailAndPassword(email, password)
             .then(function(user){
@@ -55,9 +58,14 @@ class LoginScreen extends React.Component{
         
     }
 
-    signUpUser = (email, password) => {
+    onSignUpUser = (email, password) => {
         try {
-            firebase.auth().createUserWithEmailAndPassword(email,password).catch(function(error){
+            firebase.auth().createUserWithEmailAndPassword(email,password)
+            .then((user) =>
+                this.setState({signUpSuccessful:true})
+            
+            )
+            .catch(function(error){
                 const { code, message } = error;
                 DropDownHolder.dropDown.alertWithType('error', 'Sign up Failed',message);
             });
@@ -71,18 +79,25 @@ class LoginScreen extends React.Component{
 
     render(){
         return (
-            <KeyboardAvoidingView behavior="padding" style={styles.container}>
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <KeyboardAvoidingView behavior="padding" style={styles.container} >
             
               <View style={styles.logoContainer}>
                 <Logo />
               </View>
+
               <View style={styles.formContainer}>
+            
                 <Login  
-                        loginUser={this.loginUser}
-                        signUpUser = {this.signUpUser}/>
+                        loginUser={this.onLoginUser}
+                        signUpUser = {this.onSignUpUser}
+                        
+                        />
              </View>    
+
              <DropdownAlert ref={(ref) => DropDownHolder.setDropDown(ref)}/>
             </KeyboardAvoidingView>
+            </TouchableWithoutFeedback>
         )
     }
 }
@@ -102,7 +117,15 @@ var styles = StyleSheet.create({
        flex:2,
        marginBottom: 0
     },
+    imageContainer : {
+        alignItems: 'center',
+        justifyContent: 'center',
+        height:50,
+        width:50
+    },
 });
+
+
 
 
 

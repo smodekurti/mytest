@@ -8,6 +8,7 @@ const style = StyleSheet.create({
 
     input:{
         height: 50,
+        fontSize:20,
         color: '#FFF',
         marginBottom:10,
         paddingHorizontal : 10,
@@ -15,13 +16,13 @@ const style = StyleSheet.create({
         borderRadius : 3
     },
     loginButtonContainer:{
-        backgroundColor:'#5f27cd',
+        backgroundColor:'#5352ed',
         paddingVertical: 15,
         borderRadius: 5,
         marginBottom:5
     },
     signUpButtonContainer:{
-        backgroundColor:'#1B9CFC',
+        backgroundColor:'#5352ed',
         paddingVertical: 15,
         borderRadius: 5,
         marginBottom:5
@@ -29,11 +30,12 @@ const style = StyleSheet.create({
     button:{
         textAlign: 'center',
         color: '#FFFFFF',
-        fontWeight: '700'
+        fontWeight: '700',
+        fontSize:18,
     },
     registrationContainer :{
         flexDirection:'row',
-        justifyContent: 'flex-end',
+        justifyContent: 'space-between',
         paddingVertical : 10
     },
     registrationButtons:{
