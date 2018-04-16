@@ -91,7 +91,7 @@ render(){
             source={require('./images/poker_chip.png')}
           />
         </Animated.View> 
-       <Text style={styles.text}> Poker Zone </Text>
+       <Text style={styles.text}> Sign In to Poker Zone </Text>
       </View>
       )
     

@@ -6,6 +6,8 @@ import * as firebase from 'firebase';
 import { AlertProvider } from './app/components/Alert/index';
 import DropdownAlert from 'react-native-dropdownalert';
 import DropDownHolder from './app/DropDownHolder';
+import {Provider} from 'react-redux';
+import store from './app/config/store';
 
 
 
@@ -14,10 +16,12 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <View style={{width: '100%', height: '100%'}}>
-         <TabNavigator />
-         <DropdownAlert ref={ref => DropDownHolder.setDropDown(ref)} closeInterval={6000}/>
-      </View>  
+      <Provider store={store}>
+        <View style={{width: '100%', height: '100%'}}>
+          <TabNavigator />
+          <DropdownAlert ref={ref => DropDownHolder.setDropDown(ref)} closeInterval={6000}/>
+        </View>  
+      </Provider>
         
     );
   }

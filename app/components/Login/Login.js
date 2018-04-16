@@ -4,22 +4,21 @@ import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import { Hideo } from 'react-native-textinput-effects';
 import styles from './style';
 import * as firebase from 'firebase';
+import {connect} from 'react-redux';
+import {SHOW_LOGIN, SHOW_LOGOUT, SHOW_SIGNUP} from '../../actions/authentication';
+import {show_login, show_logout,show_signup} from '../../actions/authentication';
 
-export default class Login extends React.Component{
+ class Login extends React.Component{
     constructor(props){
         super(props);
         this.state = {email: '' ,
                       password: '',
-                      fullName:''};
-    }
-
-    _renderLoginButton(){
+                      fullName:''
+                    };
 
     }
 
-    _renderSignUpButton(){
-        
-    }
+    
   
 
     render(){
@@ -28,6 +27,20 @@ export default class Login extends React.Component{
             <View  style={styles.container}>
                     <StatusBar 
                         barStyle="light-content"/>
+                    {
+                    this.props.onSignUp &&
+                    <TextInput
+                        placeholder="Full Name"
+                        placeholderTextColor = '#eee'
+                        style={styles.input}
+                        autoCapitalize="none"
+                        autoCorrect={false}
+                        keyboardType="name-phone-pad"
+                        returnKeyType="next"
+                        onChangeText= {(input) => this.setState({fullName:input})}
+                        onSubmitEditing={() => this.emailAddress.focus()}
+                        />
+                    }
                     <TextInput
                         placeholder="username or email"
                         placeholderTextColor = '#eee'
@@ -38,6 +51,7 @@ export default class Login extends React.Component{
                         returnKeyType="next"
                         onChangeText= {(input) => this.setState({email:input})}
                         onSubmitEditing={() => this.passwordInput.focus()}
+                        ref={(input) => this.emailAddress = input}
                         />
                     <TextInput style={styles.input}
                         placeholder="password"
@@ -48,7 +62,11 @@ export default class Login extends React.Component{
                         ref={(input) => this.passwordInput = input}
 
                         />
+                    
+
                 
+                    {
+                    this.props.onLogin &&
                     <TouchableOpacity 
                         style={styles.loginButtonContainer}
                         onPress={() => {
@@ -56,25 +74,69 @@ export default class Login extends React.Component{
                         }>
                         <Text style={styles.button}> LOGIN </Text>
                     </TouchableOpacity>
-                
+                    }
+
+                    {
+                    this.props.onSignUp &&
                     <TouchableOpacity 
-                        style={styles.signUpButtonContainer}
+                        style={styles.loginButtonContainer}
                         onPress={() => {
                             this.props.signUpUser(this.state.email,this.state.password)}
                         }>
-                        <Text style={styles.button}> SignUp </Text>
+                        <Text style={styles.button}> Create Account </Text>
                     </TouchableOpacity>
+                    }
+                    
+                    
                     <View style={styles.registrationContainer}>
-                        
+                    {
+                    this.props.onLogin &&   
+                        <Button 
+                            style={styles.registrationButtons}
+                            color =  {Platform.OS === 'ios' ? '#eee' : null}
+                            title="Create Account" 
+                            onPress={() => this.props.dispatch(show_signup())}/>
+
+                    }
+                    {
+                    this.props.onSignUp &&   
+                        <Button 
+                            style={styles.registrationButtons}
+                            color =  {Platform.OS === 'ios' ? '#eee' : null}
+                            title="Back to Login" 
+                            onPress={() => this.props.dispatch(show_login())}/>
+
+                    }
+                    {
+                    this.props.onLogin &&   
                         <Button 
                             style={styles.registrationButtons}
                             color =  {Platform.OS === 'ios' ? '#eee' : null}
                             title="Forgot Password" 
                             onPress={() => alert('Forgot Password')}/>
 
-                    </View>  
+                        }
+                   </View>  
+                    
                 </View>
             
         );
     }
 }
+
+const mapStateToProps = (state) => {
+    const onLogin = state.authentication.onLogin;
+    const onSignUp = state.authentication.onSignUp;;
+    const loginSuccessful = state.authentication.loginSuccessful;
+
+    console.log(onLogin);
+    return{
+        onLogin,
+        onSignUp,
+        loginSuccessful: loginSuccessful,
+         
+    };
+    
+};
+
+export default connect(mapStateToProps) (Login);
