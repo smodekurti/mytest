@@ -5,11 +5,13 @@ import Logo from '../components/Logo/Logo'
 import Container from '../components/Container/container'
 import Login from '../components/Login/Login';
 import * as firebase from 'firebase';
+import firebaseUtil from '../utils/FirebaseUtil';
 import {ConnectAlert} from '../components/Alert/index';
+import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import DropdownAlert from 'react-native-dropdownalert';
 import DropDownHolder from '../DropDownHolder';
-
+import {LOGIN_SUCCESSFUL, login_successful} from '../actions/authentication';
 import styles from './LoginScreenStyles';
 
 
@@ -18,19 +20,14 @@ import styles from './LoginScreenStyles';
 
 
 class LoginScreen extends React.Component{
-     firebaseConfig = {
-        apiKey: "AIzaSyB93ccrBJu-vAyRUYkzT9VY-OsHo9UJdOc",
-        authDomain: "pokerzone-7b970.firebaseapp.com",
-        databaseURL: "https://pokerzone-7b970.firebaseio.com",
-        projectId: "pokerzone-7b970",
-        storageBucket: "pokerzone-7b970.appspot.com",
-        messagingSenderId: "469756227615"
-      };
+     
 
     constructor(props){
         super(props);
         this.state = {email:'', password:'', loading: false, signUpSuccessful:false}
-        firebase.initializeApp(this.firebaseConfig);
+        if(!firebase.apps.length)
+            firebase.initializeApp(firebaseUtil.firebaseConfig);
+        
     }
 
     static navigationOptions = {
@@ -38,15 +35,19 @@ class LoginScreen extends React.Component{
         header : null
     }
 
-    
       
       
 
     onLoginUser = (email, password) => {
         try {
+
+            
             firebase.auth().signInWithEmailAndPassword(email, password)
-            .then(function(user){
-                console.log(user);
+            .then((user) => {
+                if(user!== null){                
+                    this.props.navigation.navigate('Home');
+                    this.props.dispatch(login_successful(user, user.email.email));
+                }
             })
             .catch(function(error){
                 const { code, message } = error;
@@ -111,4 +112,4 @@ class LoginScreen extends React.Component{
 
 
 
-export default LoginScreen;
+export default connect() (LoginScreen);

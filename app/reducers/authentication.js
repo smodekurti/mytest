@@ -1,11 +1,11 @@
-import { SHOW_LOGIN, SHOW_LOGOUT, SHOW_SIGNUP} from '../actions/authentication';
-import {show_login, show_logout, show_signup} from '../actions/authentication';
+import { SHOW_LOGIN, SHOW_LOGOUT, SHOW_SIGNUP, LOGIN_SUCCESSFUL, LOGOUT} from '../actions/authentication';
+import {show_login, show_logout, show_signup, login_successful, logout} from '../actions/authentication';
 
 const initialState = {
     loginSuccessful : false,
     onSignUp:false,
     onLogin:true,
-    logedInUser : {
+    loggedInUser : {
         email:'',
         user:{}
     },
@@ -17,6 +17,27 @@ const initialState = {
 const reducer = (state = initialState, action) => {
 
     switch(action.type){
+        case LOGIN_SUCCESSFUL: 
+            return{
+                ...state,
+                loginSuccessful : true,
+                onLogin:true,
+                onSignUp:false,
+                loggedInUser :{
+                    email: action.email,
+                    user:action.user
+                }
+            };
+        
+        case LOGOUT:
+            return{
+                ...state,
+                loginSuccessful : false,
+                onLogin:true,
+                onSignUp:false,
+                loggedInUser:{}
+            }
+
         case SHOW_LOGIN:
             return {
                 ...state,
