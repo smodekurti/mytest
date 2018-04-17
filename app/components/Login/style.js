@@ -1,7 +1,8 @@
-
+import EStyleSheet from 'react-native-extended-stylesheet';
 import { StyleSheet , Dimensions} from 'react-native';
 
-const style = StyleSheet.create({
+export default EStyleSheet.create(
+    {
     container:{
        padding: 20,
        
@@ -13,28 +14,28 @@ const style = StyleSheet.create({
         color: '#FFF',
         marginBottom:10,
         paddingHorizontal : 10,
-        backgroundColor: '#16a085',
+        backgroundColor: '$textBackground',
         borderRadius : 3
     },
     loginButtonContainer:{
-        backgroundColor:'#5352ed',
-        paddingVertical: 12,
+        
+        backgroundColor:'$darkButton',
+        paddingVertical: 15,
         borderRadius: 5,
         marginBottom:5
     },
     signUpButtonContainer:{
-        backgroundColor:'#5352ed',
+        backgroundColor:'$darkButton',
         paddingVertical: 15,
         borderRadius: 5,
         marginBottom:5
     },
     socialLogin:{
-        margin: 1,
+        margin: .0000000000001,
         paddingVertical: 12,
         borderRadius:5,
         marginBottom:5,
-        
-    },
+   },
     button:{
         
         textAlign: 'center',
@@ -49,9 +50,8 @@ const style = StyleSheet.create({
     },
     registrationButtons:{
         fontSize : 30,
-        color: 'white'
+        color: '$white'
     }
 
 })
 
-export default style;

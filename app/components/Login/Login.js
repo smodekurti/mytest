@@ -31,7 +31,7 @@ import { SocialIcon , Divider} from 'react-native-elements';
                     {
                         this.props.onLogin &&
                         <SocialIcon
-                            title=''
+                            title='Login With Facebook'
                             button
                             type='facebook'
                             style={styles.socialLogin}
@@ -43,7 +43,7 @@ import { SocialIcon , Divider} from 'react-native-elements';
                     {
                          this.props.onLogin &&
                          <SocialIcon
-                            title=''
+                            title='Login With Google'
                             button
                             type='google-plus-official'
                             style={styles.socialLogin}
@@ -67,7 +67,7 @@ import { SocialIcon , Divider} from 'react-native-elements';
                         />
                     }
                     <TextInput
-                        placeholder="username or email"
+                        placeholder="email address"
                         placeholderTextColor = '#eee'
                         style={styles.input}
                         autoCapitalize="none"
