@@ -7,7 +7,7 @@ import * as firebase from 'firebase';
 import {connect} from 'react-redux';
 import {SHOW_LOGIN, SHOW_LOGOUT, SHOW_SIGNUP} from '../../actions/authentication';
 import {show_login, show_logout,show_signup} from '../../actions/authentication';
-
+import { SocialIcon , Divider} from 'react-native-elements';
  class Login extends React.Component{
     constructor(props){
         super(props);
@@ -22,11 +22,36 @@ import {show_login, show_logout,show_signup} from '../../actions/authentication'
   
 
     render(){
+        
         return(
           
-            <View  style={styles.container}>
+            <View  style={styles.container }>
                     <StatusBar 
                         barStyle="light-content"/>
+                    {
+                        this.props.onLogin &&
+                        <SocialIcon
+                            title=''
+                            button
+                            type='facebook'
+                            style={styles.socialLogin}
+                            raised={false}
+                           />
+                        
+                         
+                    }
+                    {
+                         this.props.onLogin &&
+                         <SocialIcon
+                            title=''
+                            button
+                            type='google-plus-official'
+                            style={styles.socialLogin}
+                            raised={false}
+                           />
+                    }
+
+                    
                     {
                     this.props.onSignUp &&
                     <TextInput

@@ -9,8 +9,8 @@ import {ConnectAlert} from '../components/Alert/index';
 import PropTypes from 'prop-types';
 import DropdownAlert from 'react-native-dropdownalert';
 import DropDownHolder from '../DropDownHolder';
-import SocialLoginG from '../components/SocialLogin/SocialLogin';
-import {FacebookLoginButton} from 'react-social-login-buttons';
+
+
 
 
 
@@ -87,7 +87,8 @@ class LoginScreen extends React.Component{
               </View>
 
               <View style={styles.formContainer}>
-            
+              
+                    />
                 <Login  
                         loginUser={this.onLoginUser}
                         signUpUser = {this.onSignUpUser}
@@ -114,7 +115,7 @@ var styles = StyleSheet.create({
         
     },
     formContainer :{
-       flex:2,
+       flex:4,
        marginBottom: 0
     },
     imageContainer : {

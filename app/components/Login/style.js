@@ -1,14 +1,15 @@
 
-import { StyleSheet } from 'react-native';
+import { StyleSheet , Dimensions} from 'react-native';
 
 const style = StyleSheet.create({
     container:{
-       padding: 20
+       padding: 20,
+       
     },
 
     input:{
         height: 50,
-        fontSize:20,
+        fontSize:18,
         color: '#FFF',
         marginBottom:10,
         paddingHorizontal : 10,
@@ -17,7 +18,7 @@ const style = StyleSheet.create({
     },
     loginButtonContainer:{
         backgroundColor:'#5352ed',
-        paddingVertical: 15,
+        paddingVertical: 12,
         borderRadius: 5,
         marginBottom:5
     },
@@ -27,11 +28,19 @@ const style = StyleSheet.create({
         borderRadius: 5,
         marginBottom:5
     },
+    socialLogin:{
+        margin: 1,
+        paddingVertical: 12,
+        borderRadius:5,
+        marginBottom:5,
+        
+    },
     button:{
+        
         textAlign: 'center',
         color: '#FFFFFF',
         fontWeight: '700',
-        fontSize:18,
+        fontSize:16,
     },
     registrationContainer :{
         flexDirection:'row',

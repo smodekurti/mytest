@@ -13,6 +13,7 @@ export default EStyleSheet.create(
         container: {
             
             alignItems: 'center',
+            //paddingBottom:30
          },
         containerImages: {
             
