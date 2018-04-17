@@ -1,10 +1,16 @@
+import React, {Component} from 'react';
+import LogoutButton from '../components/Logout/Logout';
 import { StackNavigator } from 'react-navigation';
 import TabNavigation from './TabNavigator';
 import LoginScreen from '../screens/LoginScreen';
 import SampleScreen from '../screens/SampleScreen';
+import LoadingScreen from '../screens/LoadingScreen';
 
-export default RootNavigation = StackNavigator(
+ const RootNavigation = StackNavigator(
     {
+        Loading: {
+            screen : LoadingScreen
+        },
         Login : {
             screen : LoginScreen
         },
@@ -13,9 +19,19 @@ export default RootNavigation = StackNavigator(
         }
     },
      {
-        initialRouteName : 'Login',
-
+        initialRouteName : 'Loading',
+        navigationOptions: ({navigation}) => ({   
+            headerLeft: null, 
+            headerRight: 
+            (<LogoutButton navigation={navigation}/>),
+           
+          }),
+        
+        
           
-          
-    }
+    },
+     
+ 
 )
+
+export default RootNavigation;

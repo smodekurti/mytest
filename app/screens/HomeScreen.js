@@ -1,11 +1,17 @@
 import React from 'react';
 import {View, Text, StyleSheet, StatusBar, Button} from 'react-native';
+import firebase from 'firebase';
 
 class HomeScreen extends React.Component{
     static navigationOptions = {
         title : 'Home',
     }
-
+    
+    
+     componentDidMount() {
+        const { currentUser } = firebase.auth()
+        this.setState({ currentUser })
+     }
     render(){
         return(
             <View style={styles.container}>

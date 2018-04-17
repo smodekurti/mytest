@@ -3,7 +3,8 @@ import {View, Text, StyleSheet, StatusBar, Button} from 'react-native';
 
 class NewGameScreen extends React.Component{
     static navigationOptions = {
-        title : 'New Game'
+        title : 'New Game',
+        headerLeft: null
     }
 
     render(){
