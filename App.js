@@ -34,12 +34,14 @@ EStyleSheet.build(
       $primaryOrange:'#D57A66',
       $primaryGreen:'#1dd1a1',
       $primaryPurple:'#9E7685',
-      $primaryBlue: '#3498db',
+      $primaryBlue: '#1e90ff',
 
       $white:'#ffffff',
       $border: '#e2e2e2',
       $lightGray: '#f0f0f0',
-      $darkText: '#343434'
+      $darkText: '#343434',
+      $textBackground:'#3867d6',
+      $darkButton:'#192a56'
       
 
   }

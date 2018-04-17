@@ -10,6 +10,8 @@ import PropTypes from 'prop-types';
 import DropdownAlert from 'react-native-dropdownalert';
 import DropDownHolder from '../DropDownHolder';
 
+import styles from './LoginScreenStyles';
+
 
 
 
@@ -103,28 +105,7 @@ class LoginScreen extends React.Component{
     }
 }
 
-var styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#2ecc71'
-    },
-    logoContainer: {
-        flexGrow:1,
-        alignItems : 'center',
-        justifyContent: 'center'
-        
-    },
-    formContainer :{
-       flex:4,
-       marginBottom: 0
-    },
-    imageContainer : {
-        alignItems: 'center',
-        justifyContent: 'center',
-        height:50,
-        width:50
-    },
-});
+
 
 
 

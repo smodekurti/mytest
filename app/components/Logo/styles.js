@@ -26,7 +26,7 @@ export default EStyleSheet.create(
             opacity: 0.9,
             backgroundColor: 'rgba(0,0,0,0)',
             width:'$largeImageSize',
-            tintColor: '$primaryGreen',
+            tintColor: '$primaryBlue',
         },
         text: {
             
