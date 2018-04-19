@@ -6,6 +6,7 @@ import * as firebase from 'firebase';
 import firebaseUtil from '../utils/FirebaseUtil';
 import {LOGIN_SUCCESSFUL, login_successful} from '../actions/authentication';
 import {connect} from 'react-redux';
+import TimerEnhance from 'react-native-smart-timer-enhance'
 
 
 
@@ -22,13 +23,15 @@ import {connect} from 'react-redux';
   }
 
   _checkAuth(){
+    
     if(!firebase.apps.length){
       firebase.initializeApp(firebaseUtil.firebaseConfig);
     }
+
     firebase.auth().onAuthStateChanged(user => {
       
       const { currentUser } = firebase.auth();
-      console.log(currentUser);
+      
       this.props.navigation.navigate(user ? 'Home' : 'Login')
       this.props.dispatch(login_successful(user, currentUser));
     })

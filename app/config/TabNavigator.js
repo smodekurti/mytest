@@ -15,11 +15,12 @@ import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import {LOGOUT, logout} from '../actions/authentication';
 import LogoutButton from '../components/Logout/Logout';
 import {connect} from 'react-redux';
+import ScrollableHeader from '../screens/ScrollableHeader';
 
 const tabnav = TabNavigator(
     {
         Home : {
-            screen : HomeScreen,
+            screen : ScrollableHeader,
             
             
         },
@@ -31,6 +32,7 @@ const tabnav = TabNavigator(
             screen : NewGameScreen,
            
         }
+        
     },
      {
       

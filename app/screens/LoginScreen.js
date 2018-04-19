@@ -1,5 +1,17 @@
 import React from 'react';
-import {ScrollView, View,Text, StyleSheet, StatusBar, Button, TextInput , TouchableWithoutFeedback, KeyboardAvoidingView , Image, Keyboard} from 'react-native';
+import {ScrollView, 
+    View,
+    Text, 
+    StyleSheet, 
+    StatusBar, 
+    Button, 
+    TextInput ,
+    TouchableWithoutFeedback, 
+    KeyboardAvoidingView , 
+    Image, 
+    Keyboard,
+    Animated,
+    Easing} from 'react-native';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import Logo from '../components/Logo/Logo'
 import Container from '../components/Container/container'
@@ -24,7 +36,8 @@ class LoginScreen extends React.Component{
 
     constructor(props){
         super(props);
-        this.state = {email:'', password:'', loading: false, signUpSuccessful:false}
+        this.state = {email:'', password:'', loading: false, signUpSuccessful:false,growAnimation: new Animated.Value(0),}
+
         if(!firebase.apps.length)
             firebase.initializeApp(firebaseUtil.firebaseConfig);
         
@@ -36,7 +49,7 @@ class LoginScreen extends React.Component{
     }
 
       
-      
+    
 
     onLoginUser = (email, password) => {
         try {
@@ -90,8 +103,6 @@ class LoginScreen extends React.Component{
               </View>
 
               <View style={styles.formContainer}>
-              
-                    />
                 <Login  
                         loginUser={this.onLoginUser}
                         signUpUser = {this.onSignUpUser}

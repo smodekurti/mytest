@@ -11,6 +11,7 @@
     "react-native-dropdownalert": "^3.4.0",
     "react-native-elements": "^0.19.1",
     "react-native-extended-stylesheet": "^0.8.1",
+    "react-native-smart-timer-enhance": "^1.0.3",
     "react-native-textinput-effects": "^0.4.2",
     "react-navigation": "^1.5.11",
     "react-redux": "^5.0.7",
