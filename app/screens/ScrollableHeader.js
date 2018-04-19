@@ -12,11 +12,11 @@ import {
 const HEADER_MAX_HEIGHT = 250;
 const HEADER_MIN_HEIGHT = Platform.OS === 'ios' ? 60 : 73;
 const HEADER_SCROLL_DISTANCE = HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT;
+const SCROLL_MAX_HEIGHT = 125
+const SCROLL_MIN_HEIGHT = 40
 
 export default class ScrollableHeader extends Component {
-  static navigationOptions = {
-    header:null
-  }
+
   constructor(props) {
     super(props);
 
@@ -27,6 +27,10 @@ export default class ScrollableHeader extends Component {
       ),
       refreshing: false,
     };
+  }
+
+  static navigationOptions = {
+    header:null
   }
 
   _renderScrollViewContent() {
@@ -77,6 +81,14 @@ export default class ScrollableHeader extends Component {
       extrapolate: 'clamp',
     });
 
+    const headerZindex = this.state.scrollY.interpolate({
+      inputRange: [0, HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT, 250],
+      outputRange: [0, 0, 1000],
+      extrapolate: 'clamp'
+  })
+
+    
+
     return (
       <View style={styles.fill}>
         <StatusBar
@@ -84,6 +96,29 @@ export default class ScrollableHeader extends Component {
           barStyle="light-content"
           backgroundColor="rgba(0, 0, 0, 0.251)"
         />
+        
+        <Animated.View
+          pointerEvents="none"
+          style={[
+            styles.header,
+            { transform: [{ translateY: headerTranslate }] },
+          ]}
+        >
+      
+        </Animated.View>
+        <Animated.View
+          style={[
+            styles.bar,
+            {
+              transform: [
+                { scale: titleScale },
+                { translateY: titleTranslate },
+              ],
+            },
+          ]}
+        >
+          <Text style={styles.title}>$66.95</Text>
+        </Animated.View>
         <Animated.ScrollView
           style={styles.fill}
           scrollEventThrottle={16}
@@ -112,28 +147,6 @@ export default class ScrollableHeader extends Component {
         >
           {this._renderScrollViewContent()}
         </Animated.ScrollView>
-        <Animated.View
-          pointerEvents="none"
-          style={[
-            styles.header,
-            { transform: [{ translateY: headerTranslate }] },
-          ]}
-        >
-      
-        </Animated.View>
-        <Animated.View
-          style={[
-            styles.bar,
-            {
-              transform: [
-                { scale: titleScale },
-                { translateY: titleTranslate },
-              ],
-            },
-          ]}
-        >
-          <Text style={styles.title}>$66.95</Text>
-        </Animated.View>
       </View>
     );
   }
@@ -151,9 +164,11 @@ const styles = StyleSheet.create({
     top: 0,
     left: 0,
     right: 0,
-    backgroundColor: '#03A9F4',
+    backgroundColor: '#2c3e50',
     overflow: 'hidden',
     height: HEADER_MAX_HEIGHT,
+    
+    
   },
   backgroundImage: {
     position: 'absolute',
@@ -183,15 +198,22 @@ const styles = StyleSheet.create({
   scrollViewContent: {
     // iOS uses content inset, which acts like padding.
     paddingTop: Platform.OS !== 'ios' ? HEADER_MAX_HEIGHT : 0,
+    paddingHorizontal:10,
+    marginTop:-(HEADER_MAX_HEIGHT-SCROLL_MAX_HEIGHT)/2,
+    zIndex:10
+
     
   },
   row: {
-    height: 100,
-    margin: 16,
-    backgroundColor: '#D3D3D3',
+    height: 140,
+    margin: 15,
+    backgroundColor: '#eee',
+    borderColor:'#7f8c8d',
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius:15,
-    zIndex:-10
+    borderWidth:1,
+    zIndex:10
+    
   },
 });
