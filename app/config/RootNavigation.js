@@ -5,6 +5,7 @@ import TabNavigation from './TabNavigator';
 import LoginScreen from '../screens/LoginScreen';
 import SampleScreen from '../screens/SampleScreen';
 import LoadingScreen from '../screens/LoadingScreen';
+import ScrollableHeader from '../screens/ScrollableHeader';
 
  const RootNavigation = StackNavigator(
     {
@@ -16,6 +17,9 @@ import LoadingScreen from '../screens/LoadingScreen';
         },
         Home : {
             screen : TabNavigation
+        },
+        Scroll : {
+            screen : ScrollableHeader
         }
     },
      {
