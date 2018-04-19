@@ -7,10 +7,11 @@ import {
   Text,
   View,
   RefreshControl,
+  ScrollView
 } from 'react-native';
 
 const HEADER_MAX_HEIGHT = 250;
-const HEADER_MIN_HEIGHT = Platform.OS === 'ios' ? 60 : 73;
+const HEADER_MIN_HEIGHT = Platform.OS === 'ios' ? 100 : 120;
 const HEADER_SCROLL_DISTANCE = HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT;
 const SCROLL_MAX_HEIGHT = 125
 const SCROLL_MIN_HEIGHT = 40
@@ -36,13 +37,13 @@ export default class ScrollableHeader extends Component {
   _renderScrollViewContent() {
     const data = Array.from({ length: 30 });
     return (
-      <View style={styles.scrollViewContent}>
+      <Animated.View style={styles.scrollViewContent}>
         {data.map((_, i) => (
           <View key={i} style={styles.row}>
             <Text>{i}</Text>
           </View>
         ))}
-      </View>
+      </Animated.View>
     );
   }
 
@@ -55,7 +56,7 @@ export default class ScrollableHeader extends Component {
     );
     const headerTranslate = scrollY.interpolate({
       inputRange: [0, HEADER_SCROLL_DISTANCE],
-      outputRange: [0, -HEADER_SCROLL_DISTANCE],
+      outputRange: [0, -HEADER_SCROLL_DISTANCE*1.3],
       extrapolate: 'clamp',
     });
 
@@ -82,9 +83,9 @@ export default class ScrollableHeader extends Component {
     });
 
     const headerZindex = this.state.scrollY.interpolate({
-      inputRange: [0, HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT, 250],
-      outputRange: [0, 0, 1000],
-      extrapolate: 'clamp'
+      inputRange: [0, HEADER_SCROLL_DISTANCE],    
+      outputRange: [0,1],
+      extrapolate: 'clamp',
   })
 
     
@@ -96,16 +97,14 @@ export default class ScrollableHeader extends Component {
           barStyle="light-content"
           backgroundColor="rgba(0, 0, 0, 0.251)"
         />
-        
-        <Animated.View
+         <Animated.View
           pointerEvents="none"
           style={[
             styles.header,
+            {zIndex:headerZindex},
             { transform: [{ translateY: headerTranslate }] },
           ]}
-        >
-      
-        </Animated.View>
+        />
         <Animated.View
           style={[
             styles.bar,
@@ -119,12 +118,13 @@ export default class ScrollableHeader extends Component {
         >
           <Text style={styles.title}>$66.95</Text>
         </Animated.View>
-        <Animated.ScrollView
+
+        <ScrollView
           style={styles.fill}
           scrollEventThrottle={16}
           onScroll={Animated.event(
             [{ nativeEvent: { contentOffset: { y: this.state.scrollY } } }],
-            { useNativeDriver: true },
+            
           )}
           refreshControl={
             <RefreshControl
@@ -146,7 +146,9 @@ export default class ScrollableHeader extends Component {
           }}
         >
           {this._renderScrollViewContent()}
-        </Animated.ScrollView>
+        </ScrollView>
+       
+        
       </View>
     );
   }
@@ -167,7 +169,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#2c3e50',
     overflow: 'hidden',
     height: HEADER_MAX_HEIGHT,
-    
+
     
   },
   backgroundImage: {
@@ -200,7 +202,7 @@ const styles = StyleSheet.create({
     paddingTop: Platform.OS !== 'ios' ? HEADER_MAX_HEIGHT : 0,
     paddingHorizontal:10,
     marginTop:-(HEADER_MAX_HEIGHT-SCROLL_MAX_HEIGHT)/2,
-    zIndex:10
+    zIndex: 1
 
     
   },
@@ -213,7 +215,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius:15,
     borderWidth:1,
-    zIndex:10
+    zIndex:1
     
   },
 });
