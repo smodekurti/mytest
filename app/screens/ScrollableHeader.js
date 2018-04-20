@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 
 const HEADER_MAX_HEIGHT = 250;
-const HEADER_MIN_HEIGHT = Platform.OS === 'ios' ? 100 : 120;
+const HEADER_MIN_HEIGHT = Platform.OS === 'ios' ? 100 : 135;
 const HEADER_SCROLL_DISTANCE = HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT;
 const SCROLL_MAX_HEIGHT = 125
 const SCROLL_MIN_HEIGHT = 40
@@ -56,7 +56,7 @@ export default class ScrollableHeader extends Component {
     );
     const headerTranslate = scrollY.interpolate({
       inputRange: [0, HEADER_SCROLL_DISTANCE],
-      outputRange: [0, -HEADER_SCROLL_DISTANCE*1.3],
+      outputRange: [0, -HEADER_SCROLL_DISTANCE*1.36],
       extrapolate: 'clamp',
     });
 
@@ -78,12 +78,12 @@ export default class ScrollableHeader extends Component {
     });
     const titleTranslate = scrollY.interpolate({
       inputRange: [0, HEADER_SCROLL_DISTANCE / 2, HEADER_SCROLL_DISTANCE],
-      outputRange: [0, 0, -144],
+      outputRange: [0, 0, -124],
       extrapolate: 'clamp',
     });
 
     const headerZindex = this.state.scrollY.interpolate({
-      inputRange: [0, HEADER_SCROLL_DISTANCE],    
+      inputRange: [0, (HEADER_MAX_HEIGHT-10)],    
       outputRange: [0,1],
       extrapolate: 'clamp',
   })
@@ -108,6 +108,7 @@ export default class ScrollableHeader extends Component {
         <Animated.View
           style={[
             styles.bar,
+            {zIndex:headerZindex},
             {
               transform: [
                 { scale: titleScale },
@@ -201,19 +202,19 @@ const styles = StyleSheet.create({
     // iOS uses content inset, which acts like padding.
     paddingTop: Platform.OS !== 'ios' ? HEADER_MAX_HEIGHT : 0,
     paddingHorizontal:10,
-    marginTop:-(HEADER_MAX_HEIGHT-SCROLL_MAX_HEIGHT)/2,
-    zIndex: 1
+    marginTop:-(HEADER_MAX_HEIGHT-HEADER_MIN_HEIGHT)/2,
+ 
 
     
   },
   row: {
-    height: 140,
+    height: 145,
     margin: 15,
     backgroundColor: '#eee',
     borderColor:'#7f8c8d',
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius:15,
+    borderRadius:10,
     borderWidth:1,
     zIndex:1
     
