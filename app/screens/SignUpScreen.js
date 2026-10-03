@@ -5,6 +5,7 @@ import Logo from '../components/Logo/Logo'
 import Container from '../components/Container/container'
 import Login from '../components/Login/Login';
 import * as firebase from 'firebase';
+import firebaseUtil from '../utils/FirebaseUtil';
 import {ConnectAlert} from '../components/Alert/index';
 import PropTypes from 'prop-types';
 import DropdownAlert from 'react-native-dropdownalert';
@@ -13,19 +14,11 @@ import DropDownHolder from '../DropDownHolder';
 
 
 class SignUpScreen extends React.Component{
-     firebaseConfig = {
-        apiKey: "AIzaSyB93ccrBJu-vAyRUYkzT9VY-OsHo9UJdOc",
-        authDomain: "pokerzone-7b970.firebaseapp.com",
-        databaseURL: "https://pokerzone-7b970.firebaseio.com",
-        projectId: "pokerzone-7b970",
-        storageBucket: "pokerzone-7b970.appspot.com",
-        messagingSenderId: "469756227615"
-      };
 
     constructor(props){
         super(props);
         this.state = {email:'', password:'', loading: false}
-        firebase.initializeApp(this.firebaseConfig);
+        if (!firebase.apps.length) firebase.initializeApp(firebaseUtil.firebaseConfig);
     }
 
     static navigationOptions = {
